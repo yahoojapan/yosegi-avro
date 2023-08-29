@@ -42,7 +42,12 @@ public class AvroObjectToPrimitiveObject {
    * Convert Avro object to PrimitiveObject.
    */
   public static PrimitiveObject get( final Object obj ) throws IOException, AvroTypeException {
-    Schema.Type schemaType = genericUtil.induce( obj ).getType();;
+    Schema.Type schemaType;
+    try {
+      schemaType = genericUtil.induce( obj ).getType();
+    } catch ( AvroTypeException ex ) {
+      return NullObj.getInstance();
+    }
 
     if ( schemaType == Schema.Type.BOOLEAN ) {
       return new BooleanObj( (Boolean)obj );
