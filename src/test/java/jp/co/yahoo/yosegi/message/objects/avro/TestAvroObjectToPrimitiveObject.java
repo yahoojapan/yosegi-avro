@@ -122,8 +122,15 @@ public class TestAvroObjectToPrimitiveObject {
   }
 
   @Test
-  public void T_convertUnknownObj_throwsException() throws IOException {
-    assertThrows( AvroTypeException.class , () -> AvroObjectToPrimitiveObject.get( new BooleanObj( true ) ) );
+  public void T_convertEmptyArrayObj_isNull() throws IOException {
+    PrimitiveObject obj = AvroObjectToPrimitiveObject.get( Arrays.asList() );
+    assertTrue( obj instanceof NullObj );
+  }
+
+  @Test
+  public void T_convertUnknownObj_isNull() throws IOException {
+    PrimitiveObject obj = AvroObjectToPrimitiveObject.get( new StringObj( "" ) );
+    assertTrue( obj instanceof NullObj );
   }
 
 }
