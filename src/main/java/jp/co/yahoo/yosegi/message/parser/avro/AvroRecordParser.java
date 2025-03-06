@@ -78,7 +78,7 @@ public class AvroRecordParser implements IParser {
 
   @Override
   public int size() throws IOException {
-    return 0;
+    return record.getSchema().getFields().size();
   }
 
   @Override
